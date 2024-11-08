@@ -1,5 +1,6 @@
 error =0
-f= open("volunteer.txt","a")
+x= input("What is your volunteer number")
+f= open("x.txt","a")
 name= input("What is your name?")
 bags= input("How many correct bags have you made")
 try:
