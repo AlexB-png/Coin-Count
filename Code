@@ -89,3 +89,4 @@ if fail != 1:
         case _:
             print("Misinput detected / Coin type not detected")
             fail = 1
+            print("reinput to fix the issue")
