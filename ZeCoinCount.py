@@ -36,6 +36,7 @@ UI()
 
 #This will open OR create a file depending on the volunteer#
 volunteernumb= input("What is your volunteer code \n")
+volunteernumb = volunteernumb.upper()
 #The volunteer code is their name#
 
 #Clears the volunteer number so someone doesn't steal it#
@@ -60,7 +61,7 @@ if volunteernumber == True:
     
     #Gives the option to read the text file or whether to add to the file#
     choice = input("Would you like the CONTENTS or to ADD \n")
-    
+    choice = choice.upper()
     #Clears the terminal#
     os.system("CLS")
     
