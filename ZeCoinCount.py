@@ -37,6 +37,11 @@ UI()
 #This will open OR create a file depending on the volunteer#
 volunteernumb= input("What is your volunteer code \n")
 volunteernumb = volunteernumb.upper()
+
+directory = r"Coin-Count "+volunteernumb
+os.makedirs(directory, exist_ok=True)  # Create the directory if it doesn't exist
+
+
 #The volunteer code is their name#
 
 #Clears the volunteer number so someone doesn't steal it#
@@ -58,6 +63,10 @@ if volunteernumber == True:
     successbags = totalfile+"success.txt" #Amount of successful bags#
     totalbags = totalfile+"total.txt"   #total of attempts#
     totalfile = totalfile+".txt" #Entire text file'
+    
+    successbags = directory+"/"+successbags
+    totalbags = directory+"/"+totalbags
+    totalfile = directory+"/"+totalfile
     
     #Gives the option to read the text file or whether to add to the file#
     choice = input("Would you like the CONTENTS or to ADD \n")
@@ -277,14 +286,15 @@ if volunteernumber == True:
         if fail != 1:
             wrongtype = False
             #major will equal True if there is a completely **incorrect coin type** and it will not run#
-            while Major != False and correct == False:
+            while Major != False :
                 if weight == expect:
                     correct = True
                 else:
                     incorrect=weight
                     while incorrect > coin:
-                        incorrect-=coin
-                    wrong = incorrect
+                        print(incorrect)
+                        incorrect = incorrect - coin
+                    wrong2 = incorrect
 
                 
                 
@@ -307,7 +317,7 @@ if volunteernumber == True:
 
             #This is the part where each mistake is tallied up
             if wrongtype == True:
-                uhoh = f"{person} made a mistake   //   Their total was off by {wrong} grams   //   The type of coin was {typecoin} with a weight of {weight} grams \n"
+                uhoh = f"{person} made a mistake   //   Their total was off by {wrong2} grams   //   The type of coin was {typecoin} with a weight of {weight} grams \n"
                 entire.write(uhoh)
             
             #It increments the 1.txttotal to calculate an average#
