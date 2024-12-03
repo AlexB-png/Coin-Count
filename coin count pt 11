@@ -1,0 +1,484 @@
+#Function for top of the screen#
+def UI():
+    print("______________________________________________________________")
+    print("                           Coin Count                         ")
+#function for end of sequence#
+def endUI():
+    print("                Thank you for using coin count!                ")
+    print("______________________________________________________________")
+
+def sort_dict_by_value_lambda_reverse(test_dict):
+    sorted_list = sorted(test_dict.items(), key=lambda x: x[1], reverse=True)
+    return dict(sorted_list)
+
+#importing as required#
+import os
+import unittest
+import math
+import time
+import json
+
+leaderboard = {}
+
+
+#define variables#
+carryon = "YES"
+bag=0
+value=0
+fail=0
+correct = False
+Major = True
+wrongtype = False
+strange=0
+person=0
+typecoin=0
+weight=0
+coin =0
+volunteernumb = ""
+volunteernumber = False
+content1=True
+content2=True
+content3=True
+masterfile=False
+nocoins=0
+new_employee = False
+
+
+
+
+
+#Clears the terminal#
+os.system("CLS")
+#This will add the UI back after terminal cleared#
+UI()
+#This will open OR create a file depending on the volunteer#
+
+
+    
+volunteernumber=True
+
+
+    
+#Checks if the volunteer number is valid#
+
+while volunteernumber == True and carryon =="YES":
+    volunteernumb=""
+    while volunteernumb == "":
+        volunteernumb= input("What is your volunteer code \n")
+    volunteernumb = volunteernumb.upper()
+    textfilename = volunteernumb
+    directory = r"Coin-Count "+volunteernumb
+    os.makedirs(directory, exist_ok=True)  # Create the directory if it doesn't exist
+    #This will create a master file of ALL volunteers#
+    try:
+        with open("masterfile.txt","r") as masterfile:
+            masterfile=True
+            masterfile.close()
+    except:
+        print("The masterfile is missing.   Creating...")
+    if masterfile != True:
+        masterfile=open("masterfile.txt","w")
+        masterfile.close()
+    #This will create 
+    #The volunteer code is their name#
+    #Clears the volunteer number so someone doesn't steal it#
+    os.system("CLS")
+    #Brings back the UI#
+    UI()
+    #Converts volunteer number to an integer / Preventing an 
+    #You have to reset the variables else you get masterfile.txt.txt#
+    
+    #This makes the file names so they can be opened#
+    successbags = textfilename+"success.txt" #Amount of successful bags#
+    totalbags = textfilename+"total.txt"   #total of attempts#
+    totalfiles = textfilename+".txt" #Entire text file'
+    
+    successbags = directory+"/"+successbags
+    totalbags = directory+"/"+totalbags
+    totalfile = directory+"/"+totalfiles
+    totalfile2=directory+"/"+totalfiles
+    
+    
+    
+    
+    #Gives the option to read the text file or whether to add to the file#
+    choice = input("Would you like the CONTENTS or to ADD\n")
+    choice = choice.upper()
+    #Clears the terminal#
+    os.system("CLS")
+    
+    #Will allow the volunteer to see the text file#
+    if choice == "CONTENTS":
+        #Will print a UI#
+        UI()
+        
+        #Will open the text files for writing / creating new files to prevent an error#
+        try:
+            with open(successbags,"x") as test:
+                notexist=1
+        except:
+            print("volunteer code found")
+        try:
+            with open(totalbags,"x") as test2:
+                print("")
+        except:
+            print(".")
+        try:
+            with open(totalfile,"x") as test3:
+                print("")
+        except:
+            print(".")
+        try:
+            with open(totalfile,"r") as entire:
+                test=entire.read()
+            if test=="":
+                print("Have you counted any coins?")
+                nocoins=1
+        except:
+            print("Have you even counted any coins?")
+            nocoins=1
+        try:
+            with open(successbags,"r") as success:
+                test2=success.read()
+        except:
+            print("")
+        try:
+            with open(totalbags,"r") as total:
+                test3=total.read()
+        except:
+            print("")
+        
+        #This will fix an error when trying to read from an empty file#
+        x=0
+        
+        entire = open(totalfile,"r")
+        total = open(totalbags,"r")
+        success = open(successbags,"r")
+        x=entire.read()
+        
+        if x=="":
+            
+            content1=False
+        x=0
+        
+        x=total.read()
+        if x=="":
+            content2=False
+            
+        x=0
+        
+        x=success.read()
+        if x=="":
+            content3=False
+            
+        
+        #Prints the contents of 1.txt and calculates an average ( 1success.txt / 1total.txt )
+        
+        #This was the only way i could get the code to not return an error
+        entire.close()
+        total.close()
+        success.close()
+        total=open(totalbags,"r")
+        success=open(successbags,"r")
+        entire=open(totalfile,"r")
+        
+        
+        if content1 !=False:
+            print(entire.read())
+            
+        if content2 != False and content3 != False:
+            successfull = success.read() #Successful#
+            faill = total.read() #failures#
+            
+            faill=int(faill)
+            successfull=int(successfull)
+            print("The average is",(successfull/faill)*100,"%")
+        
+        with open("masterfile.txt", "r") as masterfile:
+            content = masterfile.read().strip()  # Read the content and remove spaces#
+            if not content:  # Check if the file is empty#
+                with open("masterfile.txt", "a") as masterfile:
+                    masterfile.write(f"{volunteernumb} tried to break the code\n")  # Write the volunteer number#      
+        total.close()
+        success.close()
+        entire.close()
+            
+
+
+
+
+    #If choice was to add a coin bag to the text file#
+    elif choice == "ADD":
+        entire = open(totalfile,"a")
+        g=open(successbags,"a")
+        h= open(totalbags,"a")
+        
+        #adds the UI back after terminal cleared
+        UI()
+        #Input Parameters
+        person = input("What is the volunteers name? \n")
+        typecoin = input("What type of coin is in the bag \n")
+        weight = input("What is the weight of the bag? \n")
+        #Check that the weight is an integer#
+        try:
+            weight = float(weight)
+        except:
+            print("Failure converting weight to integer")
+            fail = 1
+        #Checks whether the type of coin is correct and if the weight is correct#
+        if fail != 1:  
+            match typecoin:
+                
+                case "£2":
+                    bag=20
+                    value=2
+                    coin= 12
+                    expect = 120
+                    if weight % 12 != 0:
+                        
+                        correct = False
+                    else:
+                        
+                        correct = True        
+                case "£1":
+                    bag=20
+                    value=1
+                    coin = 8.75
+                    expect = 175
+                    if weight % 8.75 != 0:
+                        
+                        correct = False
+                    else:
+                        
+                        correct = True
+                case "50p":
+                    bag = 10
+                    value = 0.5
+                    coin = 8
+                    expect = 160
+                    if weight % 8 != 0:
+                        
+                        correct = False
+                    else:
+                        
+                        correct = True
+                case "20p":
+                    bag = 10
+                    value = 0.2
+                    coin = 5
+                    expect = 250
+                    if weight % 5 != 0:
+                        
+                        correct = False
+                    else:
+                        
+                        correct = True
+                case "10p":
+                    bag = 5
+                    value = 0.1
+                    coin = 6.5
+                    expect = 325
+                    if weight % 6.50 != 0:
+                        
+                        correct = False
+                    else:
+                        
+                        correct = True
+                case "5p":
+                    bag = 5
+                    value = 0.05
+                    coin = 2.35
+                    expect = 235
+                    if weight % 2.35 != 0:
+                        
+                        correct = False
+                    else:
+                        print("Its all 5p coins")
+                        correct = True
+                case "2p":
+                    bag = 1
+                    value = 0.02
+                    coin = 7.12
+                    expect = 356
+                    if weight % 7.12 != 0:
+                        
+                        correct = False
+                    else:
+                        print("It is all 2p coins")
+                        correct = True
+                case "1p":
+                    bag = 1
+                    value = 0.01
+                    coin = 3.56
+                    expect =356
+                    if weight % 3.56 != 0:
+                        
+                        correct = False
+                    else:
+                        print("It is all 1p coins")
+                        correct = True
+                case _:
+                    print("Misinput detected / Coin type not detected")
+                    Major = False
+                    fail =1
+                    print("reinput to fix the issue")
+        if fail != 1:
+            wrongtype = False
+            #major will equal True if there is a completely **incorrect coin type** and it will not run#
+            if Major != False and correct==False:
+                if weight == expect:
+                    correct = True
+                else:
+                    incorrect=weight
+                    while incorrect > coin:
+                        
+                        incorrect = incorrect - coin
+                    wrong2 = incorrect
+            
+            #This will append to the very inefficient master file#
+            masterfile=open("masterfile.txt","a")
+            #This will tell you what coins are missing or if there are too many#
+            
+            if weight != expect:
+                print("Something is wrong")
+                strange = expect - weight
+                strange = strange / coin
+                if strange % 1 == 0:
+                    if strange < 0:
+                        print("You have",strange * -1,"too many coins")
+                        uhoh = f"{person} made a mistake //   They had {strange*-1} too many coins   //   The type of coin was {typecoin} with a weight of {weight} grams \n"
+                    else:
+                        print("You have",strange,"too few coins")
+                        uhoh = f"{person} made a mistake //   They had {strange} too few coins   //   The type of coin was {typecoin} with a weight of {weight} grams \n"
+                    if strange != 0:
+                        entire.write(uhoh)
+                        masterfile.write(uhoh)
+                else:
+                    uhoh = f"{person} made a mistake   //   Their total was off by {wrong2} grams   //   The type of coin was {typecoin} with a weight of {weight} grams \n"
+                    entire.write(uhoh)
+                    masterfile.write(uhoh)
+            masterfile.close()
+            #This is the part where each mistake is tallied up
+                
+            
+            #It increments the 1.txttotal to calculate an average#
+            #Reminder that if you mess with this it will never work again#
+            fix=False
+            att=0
+            total=open(totalbags,"r")
+            x=total.read()
+            if x=="":
+                total.close()
+                h=open(totalbags,"w")
+                h.write("1")
+                fix=True
+            if fix == False:
+                x= int(x)
+                total.close()
+                h=open(totalbags,"w")
+                x += 1
+                x= str(x)
+                h.write(x)
+                total.close()
+                h.close()
+            
+            #This bit will increment if it is successful and will write to the text file that they did it right#
+            if wrongtype != True and correct == True and strange == 0:
+                fix=False
+                att=0
+                success=open(successbags,"r")
+                x=success.read()
+                if x=="": #Will return true if the text file is empty
+                    success.close()
+                    g=open(successbags,"w") #reopens file to write instead of read#
+                    g.write("1") #If file is empty then it will add 1 to the text file#
+                    fix=True
+                if fix == False: #If the text file is not empty#
+                    x= int(x) #converts the returned string to an integer so it can be incremented#
+                    success.close() #closes the file for reading#
+                    g=open(successbags,"w") #opens file for writing#
+                    x += 1 #Integer is incremented#
+                    x= str(x) #Converts integer to string so it can be written to the text file#
+                    g.write(x)
+                    success.close()
+                yess=f"{person} did something right!   //   The coins weighed {weight}   //   They weighed {typecoin} coins \n" #Writes success to the text file
+                masterfile=open("masterfile.txt","a")
+                entire.write(yess)
+                masterfile.write(yess)
+                masterfile.close()
+                
+                g.close()
+                
+        if nocoins != 1:
+            #totalbags and successbags#
+            with open(totalbags,"r") as totalbags:
+                with open(successbags,"r") as successbags:
+                    with open("lead.txt","a"):
+                        print("")
+                    with open("lead.txt","r") as leader:
+                        leaderboard = leader.read()
+                    close=open("lead.txt","w")
+                    close.close() 
+                    
+                    try:
+                        leaderboard = dict(leaderboard)
+                    except:
+                        print("Empty leaderboard")
+                    
+                    totalbags = totalbags.read()
+                    successbags=successbags.read()
+                    if totalbags != "" and successbags != "":
+                        successbags=int(successbags)
+                        totalbags = int(totalbags)
+                    
+                    if totalbags == "" or successbags == "" or totalbags < 5:
+                        print("You must have done at least 5 bags before you can be added to the leaderboard")
+                    else:
+                        efficiency = totalbags / successbags
+                        volunteernumb = "Name:"+volunteernumb
+                        efficiency = "Score:" + str(efficiency)
+                        leaderboard[volunteernumb] = efficiency
+                    with open("lead.txt","a") as lead:
+                        lead.write(str(leaderboard))
+    
+
+
+                
+    else:
+        print("Invalid Input ( ADD or CONTENTS )")
+        nocoins = 1
+
+    
+    
+    
+    #Prints the end UI if they do not want to continue#
+    carryon = input("Do you want to continue?")
+    carryon = carryon.upper()
+    os.system("CLS")
+    if carryon != "YES":
+        endUI()
+
+
+    
+
+
+
+
+#Test plan that chacks for an empty text file which shouldn't happen#
+with open("masterfile.txt","r") as masterfile:
+    if masterfile.read() == "":
+        print("FAIL")
+    
+
+
+
+with open("masterfile.txt","r") as masterfile:
+        x=masterfile.read()
+        class TestFiles(unittest.TestCase):
+            def test_master(self):
+                self.assertIsNot(x, "")
+            def test_volunteer(self):
+                self.assertIsNot(volunteernumb,"")
+        
+        if __name__ == '__main__':
+            unittest.main()
