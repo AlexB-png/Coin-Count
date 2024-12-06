@@ -1,0 +1,17 @@
+
+AB has an efficiency of 0
+AB has an efficiency of 0
+ADMIN has an efficiency of 0
+AB has an efficiency of 100.0
+AB has an efficiency of 100.0
+AB has an efficiency of 100.0
+AB has an efficiency of 50.0
+AB has an efficiency of 50.0
+AB has an efficiency of 60.0
+AB has an efficiency of 60.0
+ADD has an efficiency of 100.0
+AB has an efficiency of 100.0
+AB has an efficiency of 100.0
+ADMIN has an efficiency of 100.0
+ABENA has an efficiency of 100.0
+ANDY has an efficiency of 0
