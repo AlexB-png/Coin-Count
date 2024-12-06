@@ -224,6 +224,7 @@ elif Choice=="CONTENTS":
 else:
     print("Make sure that you input something correct")
     Fail = True
+    time.sleep(2)
 endUI()
 
 if Fail == False:
@@ -265,7 +266,6 @@ if Fail == False:
             else:
                 New_Leader()
 
-
 with open("Files\MasterFile.txt","r") as master:
         with open(f"Volunteer\{volunteer_number}.json") as volunteer:
             with open("Files\LeaderBoard.json") as Leader:
@@ -282,3 +282,4 @@ class TestJson(unittest.TestCase):
         self.assertNotEqual(read4, "", "The 'Admin'document should not be empty")
 if __name__ == '__main__':
     unittest.main()
+
